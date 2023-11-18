@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\BanHang;
 
 use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\KhachHangRequest;
+use App\Imports\UserImport;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -55,6 +57,34 @@ class KhachHangController extends BaseController
         // DB::table('_cong_no')->insert($dataCongNo);
 
         return $this->route_admin('index', ['success' => 'Thêm khách hàng thành công']);
+    }
+
+    public function importUser(Request $request){
+        $this->validateRequest([
+            'import_file' => 'required|file'
+        ], $request, [
+            'import_file' => 'File import'
+        ]);
+
+        $file = $request->file('import_file');
+
+        $import = new UserImport();
+        \Excel::import($import, $file);
+        if ($import->errors) {
+            session()->put('errors', $import->errors);
+            session()->save();
+            json_result([
+                'status' => 'error',
+                'message' => 'Lỗi import',
+                'redirect' => route('admin._khach_hang.index')
+            ]);
+        } else {
+            json_result([
+                'status' => 'success',
+                'message' => 'Import thành công',
+                'redirect' => route('admin._khach_hang.index')
+            ]);
+        }
     }
 
     /**

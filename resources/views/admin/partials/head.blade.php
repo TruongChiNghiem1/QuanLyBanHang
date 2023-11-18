@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ asset('admin/vendors/datatable/css/buttons.dataTables.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('admin/css/metisMenu.css') }}">
 <link rel="stylesheet" href="{{ asset('admin/DataTables/datatables.min.css') }}" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="{{ asset('admin/css/bootstrap5.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('admin/css/select2.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('admin/css/style1.css') }}" />
 <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}" />

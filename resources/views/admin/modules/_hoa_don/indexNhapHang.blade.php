@@ -66,11 +66,11 @@
                                         <td>
                                             {{ date('d/m/Y', strtotime($hd->NgayGiao)) }}
                                         </td>
-                                        <td>{{ $hd->LoaiHoaDon == 1 ? number_format($hd->NoCu, 0, '', '.') . ' VNĐ' : "Tiền mặt" }}
+                                        <td>{{ $hd->LoaiHoaDon == 1 || $hd->LoaiHoaDon == 3 ? number_format($hd->NoCu, 0, '', '.') . ' VNĐ' : "Tiền mặt" }}
                                             </td>
                                         <td>{{ number_format($NoMoi, 0, '', '.') }}
                                             VNĐ</td>
-                                        <td>{{ $hd->LoaiHoaDon == 1 ? number_format($hd->NoCu + $NoMoi, 0, '', '.') . ' VNĐ' : "Tiền mặt" }}</td>
+                                        <td>{{ $hd->LoaiHoaDon == 1 || $hd->LoaiHoaDon == 3 ? number_format($hd->NoCu + $NoMoi, 0, '', '.') . ' VNĐ' : "Tiền mặt" }}</td>
                                         </td>
                                         {{-- <td><a href="{{ route('admin._hoa_don.edit', ['id' => $hd->MaHoaDon]) }}">Sửa</a>
                                         </td> --}}

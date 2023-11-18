@@ -22,11 +22,11 @@ return new class extends Migration
             $table->float('ChietKhau')->default(0);
             $table->integer('NoCu')->default(0);
             $table->String('GhiChu')->nullable();
-            //1: Hoa don ban hang
-            //2: Hoa don ban hang tien mat
-            //3: Hoa don nhap hang
-            //4: Hoa don nhap hang tien mat
-            $table->unsignedBigInteger('LoaiHoaDon');
+            $table->unsignedBigInteger('LoaiHoaDon')->comment('
+            1: Hoa don ban hang
+            2: Hoa don ban hang tien mat
+            3: Hoa don nhap hang
+            4: Hoa don nhap hang tien mat');
             $table->timestamps();
         });
     }

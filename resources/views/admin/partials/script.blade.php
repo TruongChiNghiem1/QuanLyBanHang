@@ -1,6 +1,6 @@
 {{-- <script src="{{ asset('admin/js/jquery1-3.4.1.min.js') }}"></script>
  --}}
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="{{ asset('admin/js/jquery.min.js') }}"></script>
 <script src="{{ asset('admin/js/popper1.min.js') }}"></script>
 <script src="{{ asset('admin/js/bootstrap1.min.js') }}"></script>
 <script src="{{ asset('admin/js/metisMenu.js') }}"></script>
@@ -19,5 +19,7 @@
 <script src="{{ asset('admin/DataTables/datatables.min.js') }}"></script>
 <script src="{{ asset('admin/js/custom.js') }}"></script>
 <!-- SweetAlert2 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+<script src="{{ asset('admin/js/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('admin/js/sweetalert2@11.min.js') }}"></script>
+<script src="{{ asset('admin/js/select2.min.js') }}"></script>
 <script src="{{ asset('admin/js/myscript.js') }}"></script>

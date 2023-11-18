@@ -8,7 +8,7 @@
     <title>Đại lý Linh Chi</title>
     @include('admin.partials.head')
 </head>
-
+@yield('modal')
 <body class="crm_body_bg">
     @include('admin.partials.header')
     <section class="main_content dashboard_part large_header_bg">
@@ -16,9 +16,14 @@
         <div class="main_content_iner ">
             <div class="container-fluid p-0">
                 {{-- error --}}
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <input type="hidden" value="{{ $error }}" id="error" />
+{{--                @if ($errors->any())--}}
+{{--                    @foreach ($errors->all() as $error)--}}
+{{--                        <input type="hidden" value="{{ $error }}" id="error" />--}}
+{{--                    @endforeach--}}
+{{--                @endif--}}
+                @if(isset($errors))
+                    @foreach($errors as $error)
+                        <div class="alert alert-danger">{!! $error !!}</div>
                     @endforeach
                 @endif
                 @if (Session::get('success'))

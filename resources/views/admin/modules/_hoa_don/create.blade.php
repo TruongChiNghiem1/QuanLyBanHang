@@ -52,14 +52,15 @@
                             <div class="row mb-3 ">
                                 <div class="row mb-3 col-lg-12">
                                     <div class="col-lg-5">
-                                        <div class="input-group">
-                                            <div class="input-group-text">
-                                                <i class="ti-search"></i>
-                                            </div>
-                                            <input type="text" class="form-control" name="HangHoa" id="searchHangHoa"
-                                                placeholder="Tìm hàng hóa">
-                                        </div>
-                                        <select id="idHangHoa" name="idHangHoa" class="form-select"
+{{--                                        <div class="input-group">--}}
+{{--                                            <div class="input-group-text">--}}
+{{--                                                <i class="ti-search"></i>--}}
+{{--                                            </div>--}}
+{{--                                            <input type="text" class="form-control" name="HangHoa" id="searchHangHoa"--}}
+{{--                                                placeholder="Tìm hàng hóa">--}}
+{{--                                        </div>--}}
+                                        <label class="form-label" for="inputAddress">Hàng hóa</label>
+                                        <select id="idHangHoa" name="idHangHoa" class="form-select select2"
                                             style="display:block; position:relative;width:100%;">
                                         </select>
                                     </div>
