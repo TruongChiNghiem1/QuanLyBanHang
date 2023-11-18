@@ -25,7 +25,7 @@ class LoaiHangHoaRequest extends FormRequest
     {
         return [
             'LoaiHangHoa' => request()->route('id')
-                ? 'required|' . Rule::unique('_loai_hang_hoa')->ignore(request()->route('id'), 'MaLoaiHangHoa')
+                ? ('required|' . Rule::unique('_loai_hang_hoa')->ignore(request()->route('id'), 'MaLoaiHangHoa'))
                 : 'required|unique:_loai_hang_hoa',
         ];
     }

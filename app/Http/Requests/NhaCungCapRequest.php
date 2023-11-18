@@ -27,8 +27,8 @@ class NhaCungCapRequest extends FormRequest
         return [
             'TenKhachHang' => 'required',
             'SoDienThoai' => request()->route('id')
-                    ? 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|'. Rule::unique('_khach_hang')->where('LoaiKhachHang', 2)->ignore(request()->route('id'), 'MaKH')
-                    : 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|'. Rule::unique('_khach_hang', 'SoDienThoai')->where('LoaiKhachHang', 2),
+                    ? ('required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|'. Rule::unique('_khach_hang')->where('LoaiKhachHang', 2)->ignore(request()->route('id'), 'MaKH'))
+                    : ('required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|'. Rule::unique('_khach_hang', 'SoDienThoai')->where('LoaiKhachHang', 2)),
             'DiaChi' => 'required'
         ];
     }
