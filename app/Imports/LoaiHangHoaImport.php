@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-use App\Models\LoaiHangHoa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -15,53 +14,40 @@ class LoaiHangHoaImport implements ToModel, WithStartRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    public $errors =[];
+    public function __construct()
+    {
+        $this->errors = [];
+    }
+
     public function model(array $row)
     {
         $name = $row[1];
-        $phone = $row[2];
-        $address = $row[3];
+        $congDung = $row[2];
         $error = false;
         if(empty($name)){
-            $this->errors[] = 'Tên khách hàng dòng <b>'. $row[0] .'</b> không được trống';
-            $error = true;
-        }
-        if(empty($phone)){
-            $this->errors[] = 'Số điện thoại dòng <b>'. $row[0] .'</b> không được trống';
+            $this->errors[] = 'Loại hàng hóa dòng <b>'. $row[0] .'</b> không được trống';
             $error = true;
         } else {
-            $checkDuplicatePhone = DB::table('_khach_hang')->where('SoDienThoai', $phone)->exists();
+            $checkDuplicatePhone = DB::table('_loai_hang_hoa')->where('LoaiHangHoa', $name)->exists();
             if($checkDuplicatePhone){
-                $this->errors[] = 'Số điện thoại dòng <b>'. $row[0] .'</b> đã tồn tại';
+                $this->errors[] = 'Loại hàng hóa dòng <b>'. $row[0] .'</b> đã tồn tại';
                 $error = true;
             }
         }
-//        else if(is_numeric($phone)){
-//            $this->errors[] = 'Số điện thoại dòng <b>'. $row[0] .'</b> phải là số';
-//            $error = true;
-//        }
-
-        if(empty($address)){
-            $this->errors[] = 'Địa chỉ dòng <b>'. $row[0] .'</b> không được trống';
-            $error = true;
-        }
-
-
 
         if($error) {
             return null;
         }
 
-        $data['MaKH'] = Str::uuid();
-        $data['LoaiKhachHang'] = 1;
         $data['created_at'] = new \DateTime();
-        $data['TenKhachHang'] = $name;
-        $data['SoDienThoai'] = $phone;
-        $data['DiaChi'] = $address;
-        DB::table('_khach_hang')->insert($data);
+        $data['LoaiHangHoa'] = $name;
+        $data['CongDung'] = $congDung;
+        DB::table('_loai_hang_hoa')->insert($data);
     }
 
     public function startRow(): int
     {
-        return 2;
+        return 3;
     }
 }

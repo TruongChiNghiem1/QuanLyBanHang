@@ -571,8 +571,7 @@ $('body').on('submit', '.form-ajax', function(event) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
     }).done(function(data) {
-        console.log(data.redirect);
-        if (data.status == 'error'){
+        if (data.status === 'error'){
             Swal.fire({
                 icon: data.status,
                 text: data.message,

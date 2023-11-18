@@ -68,7 +68,7 @@
 @section('modal')
     <div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
-            <form action="{{ route('admin._khach_hang.importUser') }}" method="post" enctype="multipart/form-data" class="form-ajax">
+            <form action="{{ route('admin._loai_hang_hoa.import') }}" method="post" enctype="multipart/form-data" class="form-ajax">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
