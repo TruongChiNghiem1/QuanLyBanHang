@@ -322,7 +322,7 @@ class HoaDonController extends BaseController
 
 
 
-
+            //Tiền mặt
         } else {
             if (!empty($request->khachHang)) {
                 $MaKH = $request->khachHang;
@@ -335,6 +335,7 @@ class HoaDonController extends BaseController
                 $update['created_at'] = new \DateTime();
                 // $update['TenKhachHang'] = $request->TenKhachHang;
                 $data['MaKH'] = $update['MaKH'];
+                $data['Vu'] = 0;
                 DB::table('_khach_hang')->insert($update);
                 $MaKH = $update['MaKH'];
             }
@@ -486,8 +487,10 @@ class HoaDonController extends BaseController
                     DB::table('_hoa_don')->where('MaHoaDon', $hdf->MaHoaDon)->update($noCuUpdate);
                 }
             }
-            $congNoUpdate['SoTien'] = $congNo->SoTien - $NoMoi;
-            $congNoMoi->update($congNoUpdate);
+            // if( $congNo->SoTien == null){
+                $congNoUpdate['SoTien'] = $congNo->SoTien - $NoMoi;
+                $congNoMoi->update($congNoUpdate);
+            // }
             $hoaDon_HangHoaDelete->delete();
             $hoaDonFind->delete();
 

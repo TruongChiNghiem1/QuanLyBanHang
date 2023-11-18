@@ -46,7 +46,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($hoaDon as $hd)
+                                @foreach($hoaDon as $hd)
                                     <?php
                                         $NoMoi = 0;
                                     foreach ($hoaDon_HangHoa as $hd_hh) {
@@ -61,9 +61,7 @@
                                     <tr>
                                         <th scope="row"> <a href="#"
                                                 class="question_content">XH{{ $hd->MaHoaDon }}</a></th>
-                                        <td><a
-                                                href="{{ route('admin._hoa_don.createPDF', ['MaHoaDon' => $hd->MaHoaDon]) }}">{{ $hd->TenKhachHang }}</a>
-                                        </td>
+                                        <td><a href="{{ route('admin._hoa_don.createPDF', ['MaHoaDon' => $hd->MaHoaDon]) }}">{{ $hd->TenKhachHang }}</a></td>
                                         <td>{{ $hd->Vu }}</td>
                                         <td>
                                             {{ date('d/m/Y', strtotime($hd->NgayGiao)) }}

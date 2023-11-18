@@ -30,7 +30,7 @@ class HangHoaRequest extends FormRequest
                 ? 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                 : 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'TenHangHoa' => request()->route('id')
-                ? 'required|' . Rule::unique('_hang_hoa')->ignore(request()->route('id'), 'MaHang')
+                ? ('required|' . Rule::unique('_hang_hoa')->ignore(request()->route('id'), 'MaHang'))
                 : 'required|unique:_hang_hoa',
             'DonGia' => 'required|integer',
             'SoLuong' => 'required|integer',

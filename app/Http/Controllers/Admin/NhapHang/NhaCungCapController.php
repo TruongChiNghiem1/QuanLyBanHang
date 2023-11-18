@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\NhaCungCapRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+    
 class NhaCungCapController extends BaseController
 {
     public function __construct(){
