@@ -51,8 +51,8 @@
                                         $NoMoi = 0;
                                     foreach ($hoaDon_HangHoa as $hd_hh) {
                                         if($hd_hh->MaHoaDon == $hd->MaHoaDon){
-                                            $GiaChietKhau = ($hd->ChietKhau * $hd_hh->DonGia) / 100;
-                                            $DonGiaCK = $hd_hh->DonGia - $GiaChietKhau;
+                                            $GiaChietKhau = ($hd->ChietKhau * $hd_hh->GiaBan) / 100;
+                                            $DonGiaCK = $hd_hh->GiaBan - $GiaChietKhau;
                                             $tong = $hd_hh->SoLuong * $DonGiaCK;
                                             $NoMoi += $tong;
                                         }

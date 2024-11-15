@@ -24,14 +24,15 @@ class HoaDonController extends BaseController
     {
         $data['hoaDon'] = DB::table('_hoa_don')
             // ->where('_hoa_don.MaHoaDon', '=', $MaHoaDon)
+            ->select('_hoa_don.*', '_khach_hang.*', '_hoa_don.created_at as hd_created_at', '_khach_hang.created_at as kh_created_at')
             ->where('LoaiHoaDon', '=', 1)
             ->orWhere('LoaiHoaDon', '=', 2)
-            ->select('_hoa_don.*', '_khach_hang.*')
             ->join('_khach_hang', '_khach_hang.MaKH', '=', '_hoa_don.MaKH')
+            ->orderByDesc('_hoa_don.created_at')
             ->get();
         $data['hoaDon_HangHoa'] = DB::table('hoadon_hanghoa')
             // ->where('hoadon_hanghoa.MaHoaDon', '=', $MaHoaDon)
-            ->select('hoadon_hanghoa.SoLuong', 'hoadon_hanghoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
+            ->select('hoadon_hanghoa.SoLuong', 'hoadon_hanghoa.GiaBan', 'hoadon_hanghoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
             ->join('_hang_hoa', 'hoadon_hanghoa.MaHang', '=', '_hang_hoa.MaHang')
             ->join('_loai_hang_hoa', '_loai_hang_hoa.MaLoaiHangHoa', '=', '_hang_hoa.MaLoaiHangHoa')
             ->get();
@@ -163,7 +164,7 @@ class HoaDonController extends BaseController
             ->first();
         $dataHoaDon_HangHoa = DB::table('hoadon_hanghoa')
             ->where('hoadon_hanghoa.MaHoaDon', '=', $MaHoaDon)
-            ->select('hoadon_hanghoa.SoLuong', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
+            ->select('hoadon_hanghoa.SoLuong', 'hoadon_hanghoa.GiaBan', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
             ->join('_hang_hoa', 'hoadon_hanghoa.MaHang', '=', '_hang_hoa.MaHang')
             ->join('_loai_hang_hoa', '_loai_hang_hoa.MaLoaiHangHoa', '=', '_hang_hoa.MaLoaiHangHoa')
             ->get();
@@ -264,6 +265,7 @@ class HoaDonController extends BaseController
                 'MaHoaDon' => $hoaDon,
                 'SoLuong' => $request->soLuongHangHoaThem[$i],
                 'MaHang' => $MaHangHoa,
+                'GiaBan' => $soLuongCu->DonGia,
                 'created_at' => $ngayHomNay
             ]);
             $i++;
@@ -364,6 +366,7 @@ class HoaDonController extends BaseController
                 'MaHoaDon' => $hoaDon,
                 'SoLuong' => $request->soLuongHangHoaThem[$i],
                 'MaHang' => $MaHangHoa,
+                'GiaBan' => $soLuongCu->DonGia,
                 'created_at' => $ngayHomNay
             ]);
             $i++;
@@ -456,7 +459,7 @@ class HoaDonController extends BaseController
 
             $hoaDon_HangHoa = DB::table('hoadon_hanghoa')
                 ->where('MaHoaDon', $id)
-                ->select('hoadon_hanghoa.SoLuong', 'hoaDon_HangHoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
+                ->select('hoadon_hanghoa.SoLuong','hoadon_hanghoa.GiaBan', 'hoaDon_HangHoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
                 ->join('_hang_hoa', 'hoadon_hanghoa.MaHang', '=', '_hang_hoa.MaHang')
                 ->get();
             $hoaDon_HangHoaDelete = DB::table('hoadon_hanghoa')->where('MaHoaDon', $id);
@@ -469,8 +472,8 @@ class HoaDonController extends BaseController
             //tổng tiền hóa đơn
             foreach ($hoaDon_HangHoa as $hd_hh) {
                 if ($hd_hh->MaHoaDon == $hoaDon->MaHoaDon) {
-                    $GiaChietKhau = ($hoaDon->ChietKhau * $hd_hh->DonGia) / 100;
-                    $DonGiaCK = $hd_hh->DonGia - $GiaChietKhau;
+                    $GiaChietKhau = ($hoaDon->ChietKhau * $hd_hh->GiaBan) / 100;
+                    $DonGiaCK = $hd_hh->GiaBan - $GiaChietKhau;
                     $tong = $hd_hh->SoLuong * $DonGiaCK;
                     $NoMoi += $tong;
                 }
@@ -482,13 +485,13 @@ class HoaDonController extends BaseController
                 }
                 if ($flag == 1 && $hdf->MaHoaDon != $id) {
                     // dd($hdf->MaHoaDon);
-                    $noCuUpdate['NoCu'] = $hdf->NoCu - $NoMoi;
+                    $noCuUpdate['NoCu'] = abs($hdf->NoCu - $NoMoi);
                     $noCuUpdate['updated_at'] = new \DateTime();
                     DB::table('_hoa_don')->where('MaHoaDon', $hdf->MaHoaDon)->update($noCuUpdate);
                 }
             }
             // if( $congNo->SoTien == null){
-                $congNoUpdate['SoTien'] = $congNo->SoTien - $NoMoi;
+                $congNoUpdate['SoTien'] = abs($congNo->SoTien - $NoMoi);
                 $congNoMoi->update($congNoUpdate);
             // }
             $hoaDon_HangHoaDelete->delete();

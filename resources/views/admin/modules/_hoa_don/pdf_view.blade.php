@@ -132,8 +132,8 @@
                 ?>
                 @foreach ($HangHoa as $hh)
                     <?php
-                    $GiaChietKhau = ($ChietKhau * $hh->DonGia) / 100;
-                    $DonGiaCK = $hh->DonGia - $GiaChietKhau;
+                    $GiaChietKhau = ($ChietKhau * $hh->GiaBan) / 100;
+                    $DonGiaCK = $hh->GiaBan - $GiaChietKhau;
                     $tong = $hh->SoLuong * $DonGiaCK;
                     $tongThanhTien += $tong;
                     ?>
@@ -192,7 +192,7 @@
         <div class="rightFooter">
             <h6>Người Lập phiếu</h6>
             <p>(Ký và ghi rõ họ tên)</p>
-            <p class="DoanThaoVy">Đoàn Thảo Vy</p>
+{{--            <p class="DoanThaoVy">Đoàn Thảo Vy</p>--}}
         </div>
     </footer>
 </body>

@@ -132,8 +132,8 @@
                 ?>
                 @foreach ($HangHoa as $hh)
                     <?php
-                    $GiaChietKhau = ($ChietKhau * $hh->DonGia) / 100;
-                    $DonGiaCK = $hh->DonGia - $GiaChietKhau;
+                    $GiaChietKhau = ($ChietKhau * $hh->GiaBan) / 100;
+                    $DonGiaCK = $hh->GiaBan - $GiaChietKhau;
                     $tong = $hh->SoLuong * $DonGiaCK;
                     $tongThanhTien += $tong;
                     ?>
