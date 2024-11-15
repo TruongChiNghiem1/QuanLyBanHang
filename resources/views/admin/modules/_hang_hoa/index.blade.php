@@ -25,6 +25,9 @@
                                 </form>
                             </div>
                         </div> --}}
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalImport">
+                                Import hàng hóa
+                            </button>
                             <div class="add_button ms-2">
                                 <a href="{{ route('admin._hang_hoa.create') }}" class="btn_1">Thêm hàng hóa</a>
                             </div>
@@ -90,4 +93,28 @@
         </div>
     </div>
     <div class="col-12"></div>
+@endsection
+
+@section('modal')
+    <div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <form action="{{ route('admin._hang_hoa.import') }}" method="post" enctype="multipart/form-data" class="form-ajax">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-import-certificate"> Import hàng hóa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" name="import_file" id="import_file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection

@@ -25,6 +25,10 @@
                     @foreach($errors as $error)
                         <div class="alert alert-danger">{!! $error !!}</div>
                     @endforeach
+                    @php
+                        session()->forget('errors');
+                        session()->save();
+                    @endphp
                 @endif
                 @if (Session::get('success'))
                     <input type="hidden" value="{{ Session::get('success') }}" id="success" />

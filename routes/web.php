@@ -110,6 +110,7 @@ Route::prefix('admin')->name('admin.')->middleware('check_login')->group(functio
         Route::get('/', 'index')->name('index');
 
         Route::get('/create', 'create')->name('create');
+        Route::post('/import', 'import')->name('import');
         Route::post('/create', 'store')->name('store');
 
         Route::get('/edit/{id}', 'edit')->name('edit');

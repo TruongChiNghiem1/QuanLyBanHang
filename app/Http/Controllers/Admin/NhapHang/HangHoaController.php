@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin\NhapHang;
 
 use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\HangHoaRequest;
+use App\Imports\HangHoaImport;
+use App\Imports\LoaiHangHoaImport;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HangHoaController extends BaseController
@@ -60,6 +63,34 @@ class HangHoaController extends BaseController
 
         $this->db->insert($data);
         return $this->route_admin('index', ['success' => 'Thêm hàng hóa thành công']);
+    }
+
+    public function import(Request $request){
+        $this->validateRequest([
+            'import_file' => 'required|file'
+        ], $request, [
+            'import_file' => 'File import'
+        ]);
+
+        $file = $request->file('import_file');
+
+        $import = new HangHoaImport();
+        \Excel::import($import, $file);
+        if ($import->errors) {
+            session()->put('errors', $import->errors);
+            session()->save();
+            json_result([
+                'status' => 'error',
+                'message' => 'Lỗi import',
+                'redirect' => route('admin._hang_hoa.index')
+            ]);
+        } else {
+            json_result([
+                'status' => 'success',
+                'message' => 'Import thành công',
+                'redirect' => route('admin._hang_hoa.index')
+            ]);
+        }
     }
 
     /**
