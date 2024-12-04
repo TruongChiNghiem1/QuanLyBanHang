@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('content')
-    <form action="{{ route('admin._hoa_don.storeNhapHang') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin._hoa_don.storeNhapHang') }}" method="post" id="formNhapHang" enctype="multipart/form-data">
         <div class="row mb-3">
             <div class="col-lg-9">
                 <div class="white_card card_height_100 mb_30">
@@ -144,11 +144,24 @@
                         <hr />
                         <h5 class="f_w_800 btn-outline-danger ">Tổng công nợ: <strong class="tongCongNo">0 VNĐ</strong>
                         </h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="action" value="ThemVaIn" id="flexRadioDefault1" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Lưu công nợ & in
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="action" value="TienMat" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Tiền mặt
+                            </label>
+                        </div>
                         {{-- <a href="{{ route('admin._hoa_don.createPDF') }}" class="btn btn-primary color_background">in</a> --}}
-                        <button type="submit" name="action" value="ThemVaIn"
-                            class="btn btn-primary color_background">Lưu công nợ</button>
-                        <button type="submit" name="action" value="TienMat"
-                            class="btn btn-primary color_background">Tiền mặt</button>
+{{--                        <button type="submit" name="action" value="ThemVaIn"--}}
+{{--                            class="btn btn-primary color_background">Lưu công nợ</button>--}}
+{{--                        <button type="submit" name="action" value="TienMat"--}}
+{{--                            class="btn btn-primary color_background">Tiền mặt</button>--}}
+                        <button type="submit" class="btn btn-primary color_background mt-3">Thêm hóa đơn</button>
                     </div>
                 </div>
             </div>

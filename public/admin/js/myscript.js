@@ -340,7 +340,7 @@ $(document).ready(function () {
                     "</td><td class='color_beige'>" +
                     data.TenHangHoa +
                     "</td><td>" +
-                    data.CongDung +
+                    (data.CongDung ?? "") +
                     "</td><td class='color_beige'>" +
                     data.DonGia.toLocaleString("fi-FI") +
                     "</td><td><input type='hidden' name='soLuongHangHoaThem[]' class='soLuongHoaDon' value='" +
@@ -420,6 +420,60 @@ $(document).ready(function () {
         //     );
         // }
     }
+
+    $('#formThemHoaDon').on('submit', function (e) {
+        e.preventDefault();
+        var actionValue = $(this).val();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                Swal.fire({
+                    title: response.title,
+                    text: response.message,
+                    icon: response.icon,
+                    confirmButtonText: response.confirmButtonText,
+                }).then(() => {
+                    window.location.href = '/admin/hoa-don/pdf/' + response.maHoaDon;
+                })
+            },error: function(xhr) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra, vui lòng thử lại.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
+    })
+
+    $('#formNhapHang').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                Swal.fire({
+                    title: response.title,
+                    text: response.message,
+                    icon: response.icon,
+                    confirmButtonText: response.confirmButtonText,
+                }).then(() => {
+                    window.location.href = '/admin/hoa-don/pdf/' + response.maHoaDon;
+                })
+            },error: function(xhr) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra, vui lòng thử lại.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
+    })
 
     $("body").on("click", ".remove", function (e) {
         $(this).parents(".hangHoaHoaDon").remove();

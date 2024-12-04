@@ -51,7 +51,7 @@ class HoaDonController extends BaseController
             ->get();
         $data['hoaDon_HangHoa'] = DB::table('hoadon_hanghoa')
             // ->where('hoadon_hanghoa.MaHoaDon', '=', $MaHoaDon)
-            ->select('hoadon_hanghoa.SoLuong', 'hoaDon_HangHoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
+            ->select('hoadon_hanghoa.SoLuong', 'hoadon_hanghoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
             ->join('_hang_hoa', 'hoadon_hanghoa.MaHang', '=', '_hang_hoa.MaHang')
             ->join('_loai_hang_hoa', '_loai_hang_hoa.MaLoaiHangHoa', '=', '_hang_hoa.MaLoaiHangHoa')
             ->get();
@@ -271,14 +271,21 @@ class HoaDonController extends BaseController
             $i++;
         }
 
-        return $this->createPDF($hoaDon);
+        return response()->json([
+            'title' => 'Thành công',
+            'message' => 'Hóa đơn đã được lưu.',
+            'icon' => 'success',
+            'confirmButtonText' => 'OK',
+            'maHoaDon' => $hoaDon
+        ]);
+//        return $this->createPDF($hoaDon);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(HoaDonRequest $request)
     {
@@ -372,7 +379,14 @@ class HoaDonController extends BaseController
             $i++;
         }
 
-        return $this->createPDF($hoaDon);
+        return response()->json([
+            'title' => 'Thành công',
+            'message' => 'Hóa đơn đã được lưu.',
+            'icon' => 'success',
+            'confirmButtonText' => 'OK',
+            'maHoaDon' => $hoaDon
+        ]);
+//        return $this->createPDF($hoaDon);
     }
 
     /**
@@ -391,7 +405,7 @@ class HoaDonController extends BaseController
             ->where('_hoa_don.Vu', $vu)
             ->get();
         $data['hoaDon_HangHoa'] = DB::table('hoadon_hanghoa')
-            ->select('hoadon_hanghoa.SoLuong', 'hoaDon_HangHoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
+            ->select('hoadon_hanghoa.SoLuong', 'hoadon_hanghoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
             ->join('_hang_hoa', 'hoadon_hanghoa.MaHang', '=', '_hang_hoa.MaHang')
             ->join('_loai_hang_hoa', '_loai_hang_hoa.MaLoaiHangHoa', '=', '_hang_hoa.MaLoaiHangHoa')
             ->get();
@@ -408,7 +422,7 @@ class HoaDonController extends BaseController
             ->where('_hoa_don.MaKH', $id)
             ->get();
         $data['hoaDon_HangHoa'] = DB::table('hoadon_hanghoa')
-            ->select('hoadon_hanghoa.SoLuong', 'hoaDon_HangHoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
+            ->select('hoadon_hanghoa.SoLuong', 'hoadon_hanghoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_loai_hang_hoa.LoaiHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
             ->join('_hang_hoa', 'hoadon_hanghoa.MaHang', '=', '_hang_hoa.MaHang')
             ->join('_loai_hang_hoa', '_loai_hang_hoa.MaLoaiHangHoa', '=', '_hang_hoa.MaLoaiHangHoa')
             ->get();
@@ -459,7 +473,7 @@ class HoaDonController extends BaseController
 
             $hoaDon_HangHoa = DB::table('hoadon_hanghoa')
                 ->where('MaHoaDon', $id)
-                ->select('hoadon_hanghoa.SoLuong','hoadon_hanghoa.GiaBan', 'hoaDon_HangHoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
+                ->select('hoadon_hanghoa.SoLuong','hoadon_hanghoa.GiaBan', 'hoadon_hanghoa.MaHoaDon', '_hang_hoa.TenHangHoa', '_hang_hoa.DonViTinh', '_hang_hoa.DonGia')
                 ->join('_hang_hoa', 'hoadon_hanghoa.MaHang', '=', '_hang_hoa.MaHang')
                 ->get();
             $hoaDon_HangHoaDelete = DB::table('hoadon_hanghoa')->where('MaHoaDon', $id);
