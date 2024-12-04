@@ -7536,7 +7536,7 @@ canvas#highlights {
 }
 .card_box .white_box_tittle {
   background-color: #fff;
-  padding: 50px;
+  padding: 20px 30px;
   border-bottom: 1px solid #f2f4ff;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -7544,7 +7544,7 @@ canvas#highlights {
   overflow: hidden;
 }
 .card_box .box_body {
-  padding: 50px;
+  padding: 20px 30px;
 }
 .card_box .box_body .card {
   margin-bottom: 40px;
