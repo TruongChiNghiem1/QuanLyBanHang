@@ -175,6 +175,7 @@ class HoaDonController extends BaseController
         $dataPdf['SoDienThoai'] = $dataHoaDon->SoDienThoai;
         $dataPdf['DiaChi'] = $dataHoaDon->DiaChi;
         $dataPdf['NoCu'] = $dataHoaDon->NoCu;
+        $dataPdf['MaHoaDonCu'] = $MaHoaDonCu;
         $dataPdf['MaHoaDon'] = $MaHoaDon;
         $dataPdf['LoaiHoaDon'] = $dataHoaDon->LoaiHoaDon;
         $ngayHomNay = new \DateTime();

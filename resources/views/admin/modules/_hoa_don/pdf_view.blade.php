@@ -20,7 +20,7 @@
         <div class="right">
             <p>Ngày in: {{ $NgayIn }}</p>
             <p>Số phiếu: XH{{ $MaHoaDon }}</p>
-            <p>Toa trước: XH{{ $MaHoaDon }}</p>
+            <p>Toa trước: XH{{ $MaHoaDonCu }}</p>
         </div>
     </header>
     <h2>HÓA ĐƠN BÁN HÀNG</h2>
